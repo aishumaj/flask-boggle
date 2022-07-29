@@ -25,5 +25,13 @@ def new_game():
     game_id = str(uuid4())
     game = BoggleGame()
     games[game_id] = game
+    # return with json
+    return jsonify(gameId= game_id, board= game.board)
 
-    return {"gameId": "need-real-id", "board": "need-real-board"}
+
+# create another route for /api/score-word
+# if not boggle.is_word_in_word_list => return "not-word"
+# if not boggle.check_word_on_board => return "not-on-board"
+# else => play_and_score_word => return "ok"
+
+
