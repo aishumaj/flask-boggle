@@ -31,7 +31,8 @@ def new_game():
 
 @app.post("/api/score-word")
 def score_word():
-    """Check if word is valid and on the game board.
+    """Input: a JSON dictionary with a word and game id.
+    Check if word is valid and on the game board.
     Return JSON: {'result', 'status'} """
 
     word = request.json["word"].upper()
