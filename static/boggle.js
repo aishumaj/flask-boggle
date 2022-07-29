@@ -22,8 +22,17 @@ async function start() {
 /** Display board */
 
 function displayBoard(board) {
-  // $table.empty();
-  // loop over board and create the DOM tr/td structure
+  $table.empty();
+
+  tableBody = $("<tbody>")
+  for(let i = 0; i <=5; i++){
+    newRow = $("<tr>")
+    for(let j = 0; j<=5; j++){
+      newCell = $("<td>").innerText(board[i][j])
+      newRow.append(newCell)
+    }
+    tableBody.append(newRow)
+  }
 }
 
 
