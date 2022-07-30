@@ -24,16 +24,48 @@ async function start() {
 function displayBoard(board) {
   $table.empty();
 
-  tableBody = $("<tbody>")
-  for(let i = 0; i <=5; i++){
-    newRow = $("<tr>")
-    for(let j = 0; j<=5; j++){
-      newCell = $("<td>").innerText(board[i][j])
-      newRow.append(newCell)
+  let tableBody = $("<tbody>");
+  for (let i = 0; i < 5; i++) {
+    let newRow = $("<tr>");
+    for (let j = 0; j < 5; j++) {
+      let newCell = $("<td>").text(board[i][j]);
+      newRow.append(newCell);
     }
-    tableBody.append(newRow)
+    tableBody.append(newRow);
+  }
+  $table.append(tableBody);
+}
+
+/**Takes word submission and sends to back end and returns results*/
+async function handleSubmit(e) {
+  e.preventDefault();
+
+  let word = $wordInput.val();
+
+  let response = await axios.post("/api/score-word", {
+    "word": word, "gameId": gameId }  );
+  let result = response.data.result;
+
+
+  if (result !== "ok") {
+    invalidWordMessage();
+  } else {
+    addValidWord(word);
   }
 }
 
+/**Displays message indicating invalid word submission on DOM */
+function invalidWordMessage() {
+  $message.text("This word is invalid! Try again!");
+}
+
+/**Adds a valid word submission to bulleted list of valid words */
+function addValidWord(word) {
+
+  let newWord = $("<li>").text(word);
+  $playedWords.append(newWord);
+}
+
+$form.on("submit", handleSubmit);
 
 start();
