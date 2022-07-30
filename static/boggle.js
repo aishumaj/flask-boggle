@@ -39,6 +39,7 @@ function displayBoard(board) {
 /**Takes word submission and sends to back end and returns results*/
 async function handleSubmit(e) {
   e.preventDefault();
+  $message.empty();
 
   let word = $wordInput.val();
 
